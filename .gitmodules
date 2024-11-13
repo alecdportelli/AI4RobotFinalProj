@@ -1,0 +1,3 @@
+[submodule "modules/PyUnity"]
+	path = modules/PyUnity
+	url = https://github.com/alecdportelli/PyUnity.git
