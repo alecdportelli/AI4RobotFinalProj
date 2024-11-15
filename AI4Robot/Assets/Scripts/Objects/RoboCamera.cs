@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using System.IO;
 
-namespace Object
+namespace SimulationObject
 {
     public class RoboCamera
     {
@@ -21,13 +21,17 @@ namespace Object
             Camera cam, 
             float x, 
             float y, 
-            float z, 
+            float z,
+
             float yaw, 
             float pitch, 
-            float roll
+            float roll,
+
+            int resWidth,
+            int resHeight
         )
         {
-            RenderTexture rt = new RenderTexture(1920, 1080, 24);
+            RenderTexture rt = new RenderTexture(resWidth, resHeight, 24);
             this.cam = cam;
             this.cam.targetTexture = rt;
 

@@ -353,6 +353,8 @@
 "Assets/Scripts/Main.cs"
 "Assets/Scripts/Networking/Client.cs"
 "Assets/Scripts/Objects/RoboCamera.cs"
+"Assets/Scripts/Objects/Robots/CollisonDetector.cs"
+"Assets/Scripts/Objects/Robots/Phugiod7.cs"
 -langversion:9.0
 
 /deterministic
