@@ -8,6 +8,7 @@ namespace Robots
     {
         void OnCollisionEnter(Collision collision)
         {
+            Debug.Log(collision.gameObject);
             // Check if the colliding object is the ground
             if (collision.gameObject.CompareTag("Ground"))
             {

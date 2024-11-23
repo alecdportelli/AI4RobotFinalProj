@@ -350,11 +350,20 @@
 -r:"Library/Bee/artifacts/200b0aEDbg.dag/UnityEngine.UI.ref.dll"
 -analyzer:"/Applications/Unity/Hub/Editor/2022.3.14f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"/Applications/Unity/Hub/Editor/2022.3.14f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
+"Assets/Scripts/Controllers/PID.cs"
+"Assets/Scripts/GenerateImgs.cs"
 "Assets/Scripts/Main.cs"
 "Assets/Scripts/Networking/Client.cs"
+"Assets/Scripts/Networking/LinkData.cs"
+"Assets/Scripts/Networking/StateBuilder.cs"
+"Assets/Scripts/Networking/StateVector.cs"
+"Assets/Scripts/Networking/TargetPosition.cs"
 "Assets/Scripts/Objects/RoboCamera.cs"
 "Assets/Scripts/Objects/Robots/CollisonDetector.cs"
 "Assets/Scripts/Objects/Robots/Phugiod7.cs"
+"Assets/Scripts/Objects/Robots/TriggerDetection.cs"
+"Assets/Scripts/Utils/Constants.cs"
+"Assets/Scripts/Utils/UnityUtils.cs"
 -langversion:9.0
 
 /deterministic

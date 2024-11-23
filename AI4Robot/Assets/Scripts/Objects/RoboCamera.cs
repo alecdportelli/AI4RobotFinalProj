@@ -17,21 +17,27 @@ namespace SimulationObject
         float pitch;
         float roll;
 
+        int resWidth;
+        int resHeight;
+
         public RoboCamera(
-            Camera cam, 
-            float x, 
-            float y, 
+            Camera cam,
+            float x,
+            float y,
             float z,
 
-            float yaw, 
-            float pitch, 
+            float yaw,
+            float pitch,
             float roll,
 
             int resWidth,
             int resHeight
         )
         {
+            this.resHeight = resHeight;
+            this.resWidth = resWidth;
             RenderTexture rt = new RenderTexture(resWidth, resHeight, 24);
+
             this.cam = cam;
             this.cam.targetTexture = rt;
 
@@ -64,6 +70,22 @@ namespace SimulationObject
             byte[] imageBytes = texture.EncodeToPNG();
             RenderTexture.active = null;  // Reset active texture
             return imageBytes;
+        }
+
+
+        public Tuple<int, int> GetPixelPosOfTarget(GameObject target)
+        {
+            // Get the cube's screen-space position
+            Vector3 targetPosition = target.transform.position;
+            Vector3 screenPos = this.cam.WorldToScreenPoint(targetPosition);
+
+            int pixelX = Mathf.RoundToInt(screenPos.x);
+            int pixelY = Mathf.RoundToInt(screenPos.y);
+            
+            int xPNG = pixelX;              // X-coordinate stays the same
+            int yPNG = resHeight - pixelY;  // Convert Y-coordinate to top-left origin
+ 
+            return new Tuple<int, int>(xPNG, yPNG);
         }
     }
 }

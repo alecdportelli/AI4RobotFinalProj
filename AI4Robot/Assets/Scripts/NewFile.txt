@@ -1,0 +1,40 @@
+﻿Robot Input Cmds For Main Loop
+
+//if(isContact == false )
+//        {
+//            if (Input.GetKey(KeyCode.UpArrow))
+//            {
+//                link2Rot += 1;
+//                link2Rot = p7.SetLink2Rotation(link2Rot);
+//            }
+
+//if (Input.GetKey(KeyCode.M))
+//{
+//    link3Rot += 1;
+//    link3Rot = p7.SetLink3Rotation(link3Rot);
+//}
+//        }
+
+//        if (Input.GetKey(KeyCode.LeftArrow))
+//{
+//    link1Rot -= 1;
+//    link1Rot = p7.SetLink1Rotation(link1Rot);
+//}
+
+//if (Input.GetKey(KeyCode.RightArrow))
+//{
+//    link1Rot += 1;
+//    link1Rot = p7.SetLink1Rotation(link1Rot);
+//}
+
+//if (Input.GetKey(KeyCode.DownArrow))
+//{
+//    link2Rot -= 1;
+//    link2Rot = p7.SetLink2Rotation(link2Rot);
+//}
+
+//if (Input.GetKey(KeyCode.K))
+//{
+//    link3Rot -= 1;
+//    link3Rot = p7.SetLink3Rotation(link3Rot);
+//}

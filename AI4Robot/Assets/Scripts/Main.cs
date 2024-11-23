@@ -17,13 +17,15 @@ public class Main : MonoBehaviour
     Phugiod7 p7;
     public GameObject phugoid7Prefab;
 
+    public GameObject target;
+
     // All have default values but can be changed through Unity editor
-    // TODO: Build config file and launch script
+    [Header("Simulation Parameters")]
     public string ADDRESS = "127.0.0.1";
     public int PORT = 65432;
 
-    public int resWidth = 512;
-    public int resHeight = 512;
+    public int RES_WIDTH = 512;
+    public int RES_HEIGHT = 512;
 
     public float camXPos = 0;
     public float camYPos = 0;
@@ -33,19 +35,24 @@ public class Main : MonoBehaviour
     public float camPitch = 0;
     public float camRoll = 0;
 
-    public int NUM_ROBOTS = 0;
+    public int NUM_ROBOTS = 1;
 
     public float link1Rot = 0;
     public float link2Rot = 0;
     public float link3Rot = 0;
 
+    float link1Cmd;
+    float link2Cmd;
+    float link3Cmd;
+
     byte[] currImage;
-            
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        client = new Client( ADDRESS, PORT );
+        client = new Client( ADDRESS, PORT);
         client.StartClient();
+        client.OnDataReceived += HandleDataReceived;
 
         roboCamera = new RoboCamera(
             cam,
@@ -55,63 +62,42 @@ public class Main : MonoBehaviour
             camYaw,
             camPitch,
             camRoll,
-            resWidth,
-            resHeight
+            RES_WIDTH,
+            RES_HEIGHT
         );
 
         screenResCam.transform.position = new Vector3(camXPos, camYPos, camZPos);
         screenResCam.transform.eulerAngles = new Vector3(camYaw, camPitch, camRoll);
-        p7 = new Phugiod7($"Robot1", phugoid7Prefab, 0, 0, 0);
+
+        p7 = new Phugiod7(
+            "Robot1",
+            phugoid7Prefab,
+
+            0f,
+            0f,
+            0f,
+
+            0f,
+            0f,
+            0f
+        );
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
+    // This method will be called whenever data is received
+    private void HandleDataReceived(LinkData linkData)
+    {
+        link1Cmd = linkData.Link1;
+        link2Cmd = linkData.Link2;
+        link3Cmd = linkData.Link3;
     }
 
-    private void LateUpdate()
+
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            currImage = roboCamera.TakePicture();
-            client.SendImage(currImage);
-        }
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            link1Rot -= 1;
-            link1Rot = p7.SetLink1Rotation(link1Rot);
-        }
-
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            link1Rot += 1;
-            link1Rot = p7.SetLink1Rotation(link1Rot);
-        }
-
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            link2Rot -= 1;
-            link2Rot = p7.SetLink2Rotation(link2Rot);
-        }
-
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            link2Rot += 1;
-            link2Rot = p7.SetLink2Rotation(link2Rot);
-        }
-
-        if (Input.GetKey(KeyCode.K))
-        {
-            link3Rot -= 1;
-            link3Rot = p7.SetLink3Rotation(link3Rot);
-        }
-
-        if (Input.GetKey(KeyCode.M))
-        {
-            link3Rot += 1;
-            link3Rot = p7.SetLink3Rotation(link3Rot);
+            client.SendStateVector( p7 );
         }
 
         if (Input.GetKeyDown(KeyCode.A))
@@ -119,5 +105,11 @@ public class Main : MonoBehaviour
             currImage = roboCamera.TakePicture();
             client.SendImage(currImage);
         }
+    }
+
+
+    private void FixedUpdate()
+    {
+        p7.Update( link1Cmd, link2Cmd, link3Cmd );
     }
 }
